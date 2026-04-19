@@ -1,0 +1,7 @@
+#!/bin/bash
+# Run Java tests.
+# Usage: ./scripts/test-java [mvn args]
+
+set -euo pipefail
+cd "$(dirname "$0")/.."
+docker exec tdd_java_env mvn test "$@"

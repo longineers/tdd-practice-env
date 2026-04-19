@@ -1,0 +1,13 @@
+# Excluded from volume mounts (already in container image)
+vendor/
+target/
+
+# IDE / editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Cache
+*.cache
+.phpunit.result.cache

@@ -1,0 +1,7 @@
+#!/bin/bash
+# Run PHP tests.
+# Usage: ./scripts/test-php [phpunit args]
+
+set -euo pipefail
+cd "$(dirname "$0")/.."
+docker exec tdd_php_env composer test "$@"

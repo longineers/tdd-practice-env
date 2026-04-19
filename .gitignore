@@ -1,0 +1,15 @@
+# Dependencies
+vendor/
+
+# Build output
+target/
+
+# IDE / editor local settings
+.vscode/settings.json
+
+# Test cache
+.phpunit.result.cache
+
+# OS files
+.DS_Store
+Thumbs.db

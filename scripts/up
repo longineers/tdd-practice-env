@@ -1,0 +1,15 @@
+#!/bin/bash
+# Startup the TDD practice environment.
+# Usage: ./scripts/up
+
+set -euo pipefail
+cd "$(dirname "$0")/.."
+docker compose up -d
+
+echo "Containers started. Enter with:"
+echo "  docker exec -it tdd_php_env bash   # PHP"
+echo "  docker exec -it tdd_java_env bash  # Java"
+echo ""
+echo "If this is your first run, set up dependencies:"
+echo "  ./scripts/install-php"
+echo "  ./scripts/install-java"

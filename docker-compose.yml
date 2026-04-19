@@ -1,0 +1,28 @@
+services:
+  # --- JAVA TDD Environment ---
+  java-tdd:
+    container_name: tdd_java_env
+    image: maven:3.9-eclipse-temurin-21
+    working_dir: /app/src/java_project
+    volumes:
+      - ./src/java_project:/app/src/java_project
+    stdin_open: true
+    tty: true
+    command: sleep infinity
+
+  # --- PHP TDD Environment ---
+  php-tdd:
+    container_name: tdd_php_env
+    image: php:8.3-cli
+    working_dir: /app/src/php_project
+    volumes:
+      - ./src/php_project:/app/src/php_project
+    stdin_open: true
+    tty: true
+    command: sleep infinity
+    healthcheck:
+      test: ["CMD-SHELL", "true"]
+      interval: 10s
+      timeout: 3s
+      retries: 1
+      start_period: 2s

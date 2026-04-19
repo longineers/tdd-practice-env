@@ -1,0 +1,10 @@
+#!/bin/bash
+# Install Java dependencies (Maven local repo). Run once after first startup.
+# Usage: ./scripts/install-java
+
+set -euo pipefail
+cd "$(dirname "$0")/.."
+
+docker exec tdd_java_env mvn compile -q
+
+echo "Java dependencies ready. Run tests with: ./scripts/test-java"

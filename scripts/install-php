@@ -1,0 +1,10 @@
+#!/bin/bash
+# Install PHP dependencies (composer). Run once after first startup.
+# Usage: ./scripts/install-php
+
+set -euo pipefail
+cd "$(dirname "$0")/.."
+
+docker exec tdd_php_env composer install
+
+echo "PHP dependencies installed. Run tests with: ./scripts/test-php"

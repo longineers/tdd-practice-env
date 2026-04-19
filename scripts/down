@@ -1,0 +1,7 @@
+#!/bin/bash
+# Stop and remove the TDD practice containers.
+# Usage: ./scripts/down
+
+set -euo pipefail
+cd "$(dirname "$0")/.."
+docker compose down
