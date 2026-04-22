@@ -10,12 +10,14 @@
     },
     "autoload": {
         "psr-4": {
-            "Calc\\": "src/"
+            "Calc\\": "src/",
+            "Calc\\SolidPractice\\": "src/solid_practice"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Calc\\Tests\\": "tests/"
+            "Calc\\Tests\\": "tests/",
+            "Calc\\SolidPractice\\Tests\\": "tests/solid_practice"
         }
     },
     "scripts": {

@@ -4,4 +4,4 @@
 
 set -euo pipefail
 cd "$(dirname "$0")/.."
-docker exec tdd_php_env composer test "$@"
+docker exec tdd_php_env ./composer test "$@"
