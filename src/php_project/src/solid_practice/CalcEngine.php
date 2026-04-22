@@ -2,6 +2,9 @@
 
 namespace Calc\SolidPractice;
 
+use Exception;
+use InvalidArgumentException;
+
 /**
  * CalcEngine does everything: parsing, computing, formatting, and logging.
  * Four responsibilities in one class — a textbook SRP violation.
@@ -12,43 +15,35 @@ namespace Calc\SolidPractice;
  */
 class CalcEngine
 {
-    public static function parseExpression(string $input): array
+    /**
+     * @throws InvalidArgumentException
+     */
+    static function parseExpression(String $exp): array
     {
-        // Parsing + computation + formatting + logging all in one method.
-        $parts = preg_split('/\s+/', trim($input));
-        if (count($parts) !== 3) {
-            throw new \InvalidArgumentException("Invalid expression format.");
-        }
-        $operand_a = (float) $parts[0];
-        $operator = $parts[1];
-        $operand_b = (float) $parts[2];
+        $exp = trim($exp);
+        if (empty($exp)) return [];
 
-        // Computation mixed with parsing — why?
-        $result = match ($operator) {
-            '+' => $operand_a + $operand_b,
-            '-' => $operand_a - $operand_b,
-            '*' => $operand_a * $operand_b,
-            '/' => $operand_b === 0 ? 0.0 : $operand_a / $operand_b,
-            default => throw new \InvalidArgumentException("Unknown operator: $operator"),
-        };
+        $operand_a = substr($exp, 0, strpos($exp, ' '));
+        $operator  = substr($exp, strpos($exp, ' ') + 1 , 1);
+        $operand_b = substr($exp, strpos($exp, $operator) +1 );
 
-        // Formatting mixed in — what if the output format changes?
-        $formatted = "Result: " . (is_int($result) ? (string) $result : rtrim(rtrim(number_format($result, 2), '0'), '.'));
-
-        // Logging mixed in — what if the logging target changes?
-        file_put_contents('/tmp/calc.log', "[$formatted]\n", FILE_APPEND);
+        if (!is_numeric($operand_a)) throw new InvalidArgumentException();
+        if (!is_numeric($operand_b)) throw new InvalidArgumentException();
+        if (!in_array($operator, ['+','-','/','*'])) throw new InvalidArgumentException();
 
         return [
             'operand_a' => $operand_a,
             'operator' => $operator,
-            'operand_b' => $operand_b,
-            'result' => $formatted,
-        ];
+            'operand_b' => $operand_b
+            ];
     }
 
-    public static function calculate(string $input): string
+    static function calculate($exp): string
     {
-        $parsed = self::parseExpression($input);
-        return $parsed['result'];
+        try {
+            return "Result: " . eval("return $exp;");
+        } catch (Exception $ex) {
+            return "Result: ";
+        }
     }
 }
